@@ -1,8 +1,9 @@
 library argon_buttons_flutter;
 
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'dart:ui' show lerpDouble;
+
+import 'package:flutter/material.dart';
 
 enum ButtonState { Busy, Idle }
 
@@ -72,8 +73,7 @@ class ArgonButton extends StatefulWidget {
         assert(focusElevation == null || focusElevation >= 0.0),
         assert(hoverElevation == null || hoverElevation >= 0.0),
         assert(highlightElevation == null || highlightElevation >= 0.0),
-        assert(disabledElevation == null || disabledElevation >= 0.0),
-        assert(clipBehavior != null);
+        assert(disabledElevation == null || disabledElevation >= 0.0);
 
   @override
   _ArgonButtonState createState() => _ArgonButtonState();
@@ -171,25 +171,49 @@ class _ArgonButtonState extends State<ArgonButton>
                   widget.borderRadius, widget.height / 2, _animation.value)!
               : widget.borderRadius),
         ),
-        child: RaisedButton(
+        child: ElevatedButton(
             key: _buttonKey,
-            color: widget.color,
-            focusColor: widget.focusColor,
-            hoverColor: widget.hoverColor,
-            highlightColor: widget.highlightColor,
-            splashColor: widget.splashColor,
-            colorBrightness: widget.colorBrightness,
-            elevation: widget.elevation,
-            focusElevation: widget.focusElevation,
-            hoverElevation: widget.hoverElevation,
-            highlightElevation: widget.highlightElevation,
-            padding: widget.padding,
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                (states) {
+                  if (states.contains(MaterialState.focused)) {
+                    return widget.focusColor;
+                  } else if (states.contains(MaterialState.hovered)) {
+                    return widget.hoverColor;
+                  }
+                  return widget.color;
+                },
+              ),
+              elevation: MaterialStateProperty.resolveWith<double?>((states) {
+                if (states.contains(MaterialState.focused)) {
+                  return widget.focusElevation;
+                } else if (states.contains(MaterialState.hovered)) {
+                  return widget.hoverElevation;
+                } else if (states.contains(MaterialState.disabled)) {
+                  return widget.disabledElevation;
+                }
+                return widget.elevation;
+              }),
+              padding:
+                  MaterialStateProperty.resolveWith((states) => widget.padding),
+            ),
+            // color: widget.color,
+            // focusColor: widget.focusColor,
+            // hoverColor: widget.hoverColor,
+            // highlightColor: widget.highlightColor,
+            // splashColor: widget.splashColor,
+            // colorBrightness: widget.colorBrightness,
+            // elevation: widget.elevation,
+            // focusElevation: widget.focusElevation,
+            // hoverElevation: widget.hoverElevation,
+            // highlightElevation: widget.highlightElevation,
+            // padding: widget.padding,
             clipBehavior: widget.clipBehavior,
             focusNode: widget.focusNode,
-            materialTapTargetSize: widget.materialTapTargetSize,
-            disabledElevation: widget.disabledElevation,
-            disabledColor: widget.disabledColor,
-            disabledTextColor: widget.disabledTextColor,
+            // materialTapTargetSize: widget.materialTapTargetSize,
+            // disabledElevation: widget.disabledElevation,
+            // disabledColor: widget.disabledColor,
+            // disabledTextColor: widget.disabledTextColor,
             onPressed: () {
               widget.onTap!(
                   () => animateForward(), () => animateReverse(), btn);
@@ -268,8 +292,7 @@ class ArgonTimerButton extends StatefulWidget {
         assert(focusElevation == null || focusElevation >= 0.0),
         assert(hoverElevation == null || hoverElevation >= 0.0),
         assert(highlightElevation == null || highlightElevation >= 0.0),
-        assert(disabledElevation == null || disabledElevation >= 0.0),
-        assert(clipBehavior != null);
+        assert(disabledElevation == null || disabledElevation >= 0.0);
 
   @override
   _ArgonTimerButtonState createState() => _ArgonTimerButtonState();
@@ -406,24 +429,48 @@ class _ArgonTimerButtonState extends State<ArgonTimerButton>
                   widget.borderRadius, widget.height / 2, _animation.value)!
               : widget.borderRadius),
         ),
-        child: RaisedButton(
-            color: widget.color,
-            focusColor: widget.focusColor,
-            hoverColor: widget.hoverColor,
-            highlightColor: widget.highlightColor,
-            splashColor: widget.splashColor,
-            colorBrightness: widget.colorBrightness,
-            elevation: widget.elevation,
-            focusElevation: widget.focusElevation,
-            hoverElevation: widget.hoverElevation,
-            highlightElevation: widget.highlightElevation,
-            padding: widget.padding,
+        child: ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                (states) {
+                  if (states.contains(MaterialState.focused)) {
+                    return widget.focusColor;
+                  } else if (states.contains(MaterialState.hovered)) {
+                    return widget.hoverColor;
+                  }
+                  return widget.color;
+                },
+              ),
+              elevation: MaterialStateProperty.resolveWith<double?>((states) {
+                if (states.contains(MaterialState.focused)) {
+                  return widget.focusElevation;
+                } else if (states.contains(MaterialState.hovered)) {
+                  return widget.hoverElevation;
+                } else if (states.contains(MaterialState.disabled)) {
+                  return widget.disabledElevation;
+                }
+                return widget.elevation;
+              }),
+              padding:
+                  MaterialStateProperty.resolveWith((states) => widget.padding),
+            ),
+            // color: widget.color,
+            // focusColor: widget.focusColor,
+            // hoverColor: widget.hoverColor,
+            // highlightColor: widget.highlightColor,
+            // splashColor: widget.splashColor,
+            // colorBrightness: widget.colorBrightness,
+            // elevation: widget.elevation,
+            // focusElevation: widget.focusElevation,
+            // hoverElevation: widget.hoverElevation,
+            // highlightElevation: widget.highlightElevation,
+            // padding: widget.padding,
             clipBehavior: widget.clipBehavior,
             focusNode: widget.focusNode,
-            materialTapTargetSize: widget.materialTapTargetSize,
-            disabledElevation: widget.disabledElevation,
-            disabledColor: widget.disabledColor,
-            disabledTextColor: widget.disabledTextColor,
+            // materialTapTargetSize: widget.materialTapTargetSize,
+            // disabledElevation: widget.disabledElevation,
+            // disabledColor: widget.disabledColor,
+            // disabledTextColor: widget.disabledTextColor,
             onPressed: () {
               widget.onTap!((newCounter) => startTimer(newCounter), btn);
             },
