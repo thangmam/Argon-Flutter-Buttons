@@ -431,6 +431,15 @@ class _ArgonTimerButtonState extends State<ArgonTimerButton>
         ),
         child: ElevatedButton(
             style: ButtonStyle(
+              shape: widget.borderRadius > 0
+                  ? MaterialStateProperty.resolveWith<OutlinedBorder>((states) {
+                      return RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                          widget.borderRadius,
+                        ),
+                      );
+                    })
+                  : null,
               backgroundColor: MaterialStateProperty.resolveWith<Color?>(
                 (states) {
                   if (states.contains(MaterialState.focused)) {
