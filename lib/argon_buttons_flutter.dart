@@ -65,7 +65,7 @@ class ArgonButton extends StatefulWidget {
       this.focusNode,
       this.materialTapTargetSize,
       this.roundLoadingShape: true,
-      this.borderSide: const BorderSide(color: Colors.transparent, width: 0),
+      this.borderSide: const BorderSide(color: Colors.white, width: 0),
       this.disabledElevation,
       this.disabledColor,
       this.disabledTextColor})
@@ -174,6 +174,14 @@ class _ArgonButtonState extends State<ArgonButton>
         child: ElevatedButton(
             key: _buttonKey,
             style: ButtonStyle(
+              shape: widget.borderRadius > 0
+                  ? MaterialStateProperty.resolveWith<OutlinedBorder>((states) {
+                      return RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(widget.borderRadius),
+                      );
+                    })
+                  : null,
               backgroundColor: MaterialStateProperty.resolveWith<Color?>(
                 (states) {
                   if (states.contains(MaterialState.focused)) {
